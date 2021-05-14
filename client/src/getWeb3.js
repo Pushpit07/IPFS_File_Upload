@@ -12,6 +12,7 @@ const getWeb3 = () =>
           await window.ethereum.enable();
           // Acccounts now exposed
           resolve(web3);
+          console.log("Injected web3 detected.");
         } catch (error) {
           reject(error);
         }
