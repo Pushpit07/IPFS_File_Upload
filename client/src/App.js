@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./getWeb3";
-import TruffleContract from 'truffle-contract'
+import TruffleContract from 'truffle-contract';
 import ipfs from "./ipfs";
-import Web3 from 'web3'
+import upload from "./upload.png";
+import loading from "./loading.png";
 
 import "./App.css";
 
@@ -81,21 +82,26 @@ class App extends Component {
 
   render() {
     // if (!this.state.web3) {
-    //   return <div>Loading Web3, accounts, and contract...</div>;
+    //   return <img src={loading} alt="" width="350px" />;
     // }
     return (
       <div className="App">
-        <h1>IPFS File Upload DApp</h1>
-        <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt="" width="600px" />
-        <p>
-          This image is stored on IPFS & the Ethereum Blockchain!
-        </p>
-        <h2>Upload image</h2>
-        <form onSubmit={this.onSubmit}>
-          <input type="file" onChange={this.captureFile} />
-          <input type="submit" />
+        <h1 className="heading">IPFS File Upload DApp</h1>
+        {this.state.ipfsHash ? <div><img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt="" width="600px" className="img_display" />
+          <p className="on_eth_block">
+            This image is stored on IPFS & the Ethereum Blockchain!
+          </p>
+          <p className="on_eth_block">Visit: &nbsp;&nbsp;<a href={this.state.url} target="_blank" className="link">https://ipfs.io/ipfs/{this.state.ipfsHash}</a>&nbsp;&nbsp; to view the image</p>
+        </div>
+          :
+          <img src={upload} alt="" width="350px" />
+        }
+
+        <h2 className="upload_image">Upload image</h2>
+        <form onSubmit={this.onSubmit} className="mt-5">
+          <input type="file" onChange={this.captureFile} className="btn" />
+          <input type="submit" className="btn button_style" />
         </form>
-        <p>Visit: &nbsp;&nbsp;<a href={this.state.url} target="_blank">https://ipfs.io/ipfs/{this.state.ipfsHash}</a>&nbsp;&nbsp; to view the image</p>
       </div >
     );
   }
